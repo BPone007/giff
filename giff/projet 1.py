@@ -1,16 +1,20 @@
-
 from moviepy.editor import VideoFileClip
+import os
 
-def video_to_gif(input_path, output_path, fps=8):
-  # Nou kreye objet video ah
-    clip = VideoFileClip(input_path)
+def konvèti_videyo_an_gif(chemin_videyo, chemen_gif, max_dire=10):
+  
+    if not os.path.exists(chemin_videyo):
+        print(f"Erè: Fichye {chemin_videyo} pa ekziste.")
+        return
+    videyo_clip = VideoFileClip(chemin_videyo)
+    videyo_clip = videyo_clip.subclip(0, min(videyo_clip.duration, max_dire))
+    videyo_clip.write_gif(chemen_gif)
+    
+    print(f"Konvèsyon an fèt avèk siksè. GIF a nan {chemen_gif}")
 
-    clip.write_gif(output_path, fps=fps)
-#itilizasyon fonksyon ahn 
-input_video_path = 'videyo.mp4'
-
-output_gif_path = 'animasyon.gif'
-
-frame_rate = 8
-
-video_to_gif(input_video_path, output_gif_path, frame_rate)
+if __name__ == "__main__":
+    chemin_videyo = r"C:\Users\ING BP\Desktop\Projet2\PRJT\input.mp4"
+    chemen_gif = r"C:\Users\ING BP\Desktop\Projet2\PRJT\output.gif"
+    max_dire = 10
+    
+    konvèti_videyo_an_gif(chemin_videyo, chemen_gif, max_dire)
